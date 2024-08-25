@@ -1,0 +1,31 @@
+server:
+  port: 8888
+
+app:
+  api-prefix: /api/v1
+  
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # IDENTITY SERVICE
+        - id: identity_service
+          uri: http://localhost:8080
+          predicates:
+            - Path=${app.api-prefix}/identity/**
+          filters:
+            # Cắt đi 1 phần dấu /... (vd: /api/profile -> strip 1 = /profile)
+            - StripPrefix=2
+              
+          # PROFILE SERVICE
+        - id: profile_service
+          uri: http://localhost:8081
+          predicates:
+            # map được nhiều endpoint = dấu ,
+            # Path=${app.api-prefix}/profile/users/**,${app.api-prefix}/profile/internal/users/**
+            - Path=${app.api-prefix}/profile/users/**
+          filters:
+            # Cắt đi 1 phần dấu / (vd: /api/profile -> strip 1 = /profile)
+            - StripPrefix=2

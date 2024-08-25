@@ -55,7 +55,8 @@ public class AuthenticationService {
 
         try {
             verifyToken(token);
-        } catch (AppException e) {
+        } catch (Exception e) {
+            log.error(e.getMessage());
             isValid = false;
         }
 
