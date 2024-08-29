@@ -29,3 +29,11 @@ spring:
           filters:
             # Cắt đi 1 phần dấu / (vd: /api/profile -> strip 1 = /profile)
             - StripPrefix=2
+          
+          # NOTIFICATION SERVICE
+        - id: notification_service
+          uri: http://localhost:8082
+          predicates:
+            - Path=${app.api-prefix}/notification/**
+          filters:
+            - StripPrefix=2

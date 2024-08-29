@@ -1,0 +1,14 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /notification
+spring:
+  application:
+    name: notification-service
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/notification-service?authSource=admin
+
+brevo:
+  api-key: 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
+  sender: hau.pv.0596@gmail.com
